@@ -1,0 +1,10 @@
+[{"query":"SELECT name FROM country WHERE population > 8000000 ORDER BY population ASC"},
+{"query":"SELECT name FROM country WHERE  name LIKE '%land%' ORDER BY name ASC"},
+{"query":"SELECT name FROM city WHERE population >= 500000 AND population <= 1000000 ORDER BY population ASC"},
+{"query":"SELECT name FROM country WHERE continent = 'Europe' ORDER BY name ASC"},
+{"query":"SELECT * FROM country ORDER BY surfacearea ASC"},
+{"query":"SELECT city.name from city JOIN country ON country.code = city.countrycode WHERE country.name = 'Netherlands' ORDER BY city.name ASC"},
+{"query":"SELECT population  FROM city WHERE name = 'Rotterdam'"},
+{"query":"SELECT name  surfacearea FROM country ORDER BY surfacearea DESC  limit 10"},
+{"query":"SELECT name FROM city ORDER BY population DESC  limit 10"},
+{"query":"SELECT name from country where population =( SELECT MAX(population)  FROM country)"}]
