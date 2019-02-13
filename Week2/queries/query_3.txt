@@ -1,0 +1,6 @@
+SELECT COUNT(city.name) AS Cities
+   FROM country INNER JOIN  countrylanguage 
+                INNER JOIN city 
+                ON code = countrylanguage.countrycode 
+                AND code = city.countrycode 
+                WHERE language= ?  ORDER BY language

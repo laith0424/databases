@@ -1,0 +1,8 @@
+H  E  L  P:
+
+write:  1 [value]        : The capital of country [value]  
+write:  2 [value]        : List all the languages spoken in the region [value]
+write:  3 [value]        : The number of cities in which language [value] is spoken
+write:  4 [value]        : The countries with the same official language and same region of [value]
+write:  5                : List all the continents with the number of languages spoken in each continent
+write:  h or "any thing" : Help Menu

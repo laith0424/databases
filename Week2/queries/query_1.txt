@@ -1,0 +1,1 @@
+SELECT name ID , CountryCode , District , Population FROM city  WHERE id = ( SELECT capital FROM country WHERE name = ? )

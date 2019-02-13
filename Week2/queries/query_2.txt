@@ -1,0 +1,1 @@
+SELECT DISTINCT language FROM countryLanguage INNER JOIN country ON code = countrycode  WHERE region = ?

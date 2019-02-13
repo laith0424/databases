@@ -1,0 +1,5 @@
+SELECT  COUNT(distinct language) AS languages , continent  
+        FROM countrylanguage INNER JOIN country 
+        ON code = countrycode 
+        GROUP BY continent 
+        ORDER BY continent , language
