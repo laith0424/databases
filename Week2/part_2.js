@@ -50,7 +50,7 @@ DELIMITER //
 
 CREATE TRIGGER insert_trigger_countrylanguage
 
- BEFORE INSERT 
+ AFTER INSERT 
 
  ON countrylanguage FOR EACH ROW 
 
@@ -59,7 +59,7 @@ CREATE TRIGGER insert_trigger_countrylanguage
    IF (  SELECT count(language)  
          FROM   countrylanguage  
          WHERE  countrycode = NEW.countrycode   
-      ) >= 10  
+      ) > 10  
    THEN
        SIGNAL SQLSTATE '23522'
        SET message_text = 'More than 10 languages for each country not allowed';
