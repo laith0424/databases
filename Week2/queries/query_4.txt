@@ -1,14 +1,36 @@
-SELECT name ,  country.region , countrylanguage.language , countrylanguage.isofficial , ss.result  FROM 
-    ( SELECT  region , language , isofficial , 
-      IF ( COUNT( name ) > 1  , 'There are more than one country' , 'There is only one country' 
-         ) AS result
-           FROM country  
-           JOIN countrylanguage ON countrylanguage.countrycode = code 
-           WHERE  (region , language , isofficial ) = 
-              ( SELECT region ,  language, isofficial   
+                 
+DROP  PROCEDURE  IF EXISTS `p_similar_countries`;
+DELIMITER $$
+CREATE  PROCEDURE `p_similar_countries`(
+        in  p_countryName                     CHAR(30)
+     )
+BEGIN 
+   
+  DECLARE countCountry INT;
+  DECLARE cRegion char(30) ; 
+  DECLARE Clanguage char(30);
+  DECLARE cIsOfficial char(1);
+  DECLARE result char(1);
+  
+    
+  SELECT region ,  language, isofficial INTO cRegion , Clanguage , cIsOfficial    
                  FROM country INNER JOIN countrylanguage ON code = countrycode 
-                 WHERE name = ? AND isofficial ='T'
-               ) 
-    ) AS ss
-     JOIN country ON country.region = ss.region  JOIN countrylanguage ON countrylanguage.countrycode = code 
-     WHERE  (country.region , countrylanguage.language , countrylanguage.isofficial ) =  ( ss.region ,  ss.language, ss.isofficial)
+                 WHERE name = p_countryName AND isofficial ='T';  
+    
+  SELECT count(name)    INTO countCountry  FROM country INNER JOIN countrylanguage ON code = countrycode 
+                 WHERE (region ,  language, isofficial) = (cRegion , Clanguage , cIsOfficial);
+                 
+                 
+  select if( countCountry > 1 , 'T' , 'F') Into result;              
+
+      IF result='T'
+       THEN SELECT name , region ,  language, isofficial    FROM country INNER JOIN countrylanguage ON code = countrycode 
+                 WHERE (region ,  language, isofficial) = (cRegion , Clanguage , cIsOfficial);
+       ELSE
+          SELECT 'There are no countries with the same region, language and Same official language ' as ALERT;
+      END IF;
+END$$
+DELIMITER ;
+     
+call p_similar_countries('China');
+call p_similar_countries('Syria');     

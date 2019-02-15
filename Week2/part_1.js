@@ -61,7 +61,7 @@ createSelect(  )
              executeQuery( countCities , process.argv[3] , status);
              break;
           case '4':
-             executeQuery( countriesSameRegion , process.argv[3] , status );
+             executeQuery( `call p_similar_countries('${process.argv[3]}');` ,  status );
              break;
           default:
              console.log(helpFile);
