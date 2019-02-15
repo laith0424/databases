@@ -16,9 +16,7 @@ CREATE TABLE IF NOT EXISTS to_do_lists(
     list_id INT( 10 ) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user_id INT(10) NOT NULL ,
     description VARCHAR( 1000 ) DEFAULT '',
-    is_done BOOL NOT NULL DEFAULT FALSE,
-    date_start TIMESTAMP,
-    date_end TIMESTAMP,
+    completed BOOL NOT NULL DEFAULT FALSE,
     FOREIGN KEY ( user_id ) REFERENCES users( user_id )
 );
 
@@ -26,7 +24,7 @@ CREATE TABLE IF NOT EXISTS items (
     item_id INT( 10 ) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     list_id INT( 10 )  NOT NULL,
     description VARCHAR( 1000 ) DEFAULT '',
-    is_complited BOOL NOT NULL DEFAULT FALSE,
+    completed BOOL NOT NULL DEFAULT FALSE,
     date_start TIMESTAMP,
     date_end TIMESTAMP,
      FOREIGN KEY ( list_id ) REFERENCES to_do_lists( list_id )
