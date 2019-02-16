@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS to_do_lists(
     user_id INT(10) NOT NULL ,
     description VARCHAR( 1000 ) DEFAULT '',
     completed BOOL NOT NULL DEFAULT FALSE,
+    start_date TIMESTAMP,
+    due_date TIMESTAMP,
     FOREIGN KEY ( user_id ) REFERENCES users( user_id )
 );
 
@@ -25,18 +27,18 @@ CREATE TABLE IF NOT EXISTS items (
     list_id INT( 10 )  NOT NULL,
     description VARCHAR( 1000 ) DEFAULT '',
     completed BOOL NOT NULL DEFAULT FALSE,
-    date_start TIMESTAMP,
-    date_end TIMESTAMP,
+    start_date TIMESTAMP,
+    due_date TIMESTAMP,
      FOREIGN KEY ( list_id ) REFERENCES to_do_lists( list_id )
 );
 
 CREATE TABLE IF NOT EXISTS tags (
-    tags_id INT( 10 ) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    tag_id INT( 10 ) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     description VARCHAR( 1000 ) DEFAULT ''
 );
 CREATE TABLE IF NOT EXISTS items_tags (
     item_id INT( 10 )  NOT NULL ,
-    tags_id INT( 10 )  NOT NULL,
+    tag_id INT( 10 )  NOT NULL,
      FOREIGN KEY ( item_id ) REFERENCES items( item_id ),
      FOREIGN KEY ( tags_id ) REFERENCES tags( tags_id )
 );
