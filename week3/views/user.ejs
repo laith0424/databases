@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+        <link rel="stylesheet" href="../css/style.css">
+        <title>
+            Test
+        </title>
+    </head>
+    <body>
+        <nav class="navigation">
+            <ul class="navigation__list">
+                <li>
+                    <a class="navigation__link" href="http://localhost:4343/">Home</a>    
+                </li>
+                <li>
+                    <a class="navigation__link" href="http://localhost:4343/login">login</a>
+                </li>
+            </ul>
+        </nav>
+
+        <h1 class="user_name"><%= user %></h1>
+        <main class="row">
+                <section class="col-1-of-4 section__first">
+                
+                <h3 class="To_do_list">To do list</h3>
+                
+                <% for(var i = 0 ; i< reminders.length ; i++){%>
+                        <ul class="reminders__ul"> 
+                            <%
+                            Object.keys( reminders[i] ).forEach( ( key )=> {%> 
+                                <li> <%=  reminders[i][key] %> </li>
+                                <%} );
+                            %>
+                        </ul>
+                    <%} %>  
+                
+                </> 
+            </section>
+
+
+            <section class="col-3-of-4">
+
+                <form action="http://localhost:4343/user/creat_new_list" method="POST">
+                    <fieldset>
+                        <legend>Create new list</legend>
+                        <input type="hidden" name="user_name"  value='<%= user %>'  > 
+                        <input type="hidden" name="user_config" value="<%= config %>" >
+                        <textarea name="todo_description" placeholder="description" required rows="10" cols="30"></textarea><br><br>
+                        <input type="submit" value="Create">
+                    </fieldset>         
+                </form>
+
+
+
+                <form action="http://localhost:4343/user/delete_a_list" method="POST">
+                    <fieldset>
+                        <legend>Delete a list</legend>
+                        <input type="hidden" name="delete_user_name"  value='<%= user %>' >  
+                        <input type="hidden" name="user_config" value="<%= config %>" >
+                        <select name="delete_list_id" id='delete_list_id' required>
+                            <option disabled selected>select a list</option>
+                            <%
+                            for( var i = 0;i< lists.length ; i++){%>
+                                <option value= <%= lists[i].list_id %> > <%= lists[i].description %> </option>   
+                            <%}
+                            %>
+                        </select><br><br>
+                        <input type="submit" value="Delete">
+                    </fieldset>         
+                </form>
+
+
+
+
+                <form action="http://localhost:4343/user/create_new_item" method="POST">
+                    <fieldset>
+                        <legend>Create new item</legend>
+                        <input type="hidden" name="user_config" value="<%= config %>" >  
+                        <select name="select_tag_id" id='select_tag_id' required>
+                                <option disabled selected>select a tag</option>
+                                <%
+                                for(var i = 0; i< tags.length ; i++ ){%>
+                                    <option value= <%= tags[i].tag_id %> > <%= tags[i].description %> </option> 
+                                <%}
+                                %>
+                        </select>
+                        <select name="select_list_id" id='select_list_id' required>
+                            <option disabled selected>select a list</option>
+                            <%
+                            for( var i = 0;i< lists.length ; i++){%>
+                                <option value= <%= lists[i].list_id %> > <%= lists[i].description %> </option>   
+                            <%}
+                            %>
+                        </select>
+                        <input type="datetime-local" name="due_date" placeholder="Due date" required><br><br>
+                        <textarea name="todo_description" placeholder="description" required rows="10" cols="30"></textarea><br><br>
+                        <input type="submit" value="Create">                   
+                    </fieldset>         
+                </form>
+
+
+
+                <form action="http://localhost:4343/user/delete_an_item" method="POST">
+                    <fieldset>
+                        <legend>Delete an item</legend>
+                        <input type="hidden" name="user_config" value="<%= config %>" > 
+                        <select name="delete_item_id" id='delete_item_id' required>
+                            <option disabled selected>select an item</option>
+                            <%
+                            for( var i = 0 ; i< items.length ; i++){%>
+                                <option value= <%= items[i].item_id %> > <%= items[i].description %> </option>   
+                            <%}
+                            %>
+                        </select>
+                        <input type="submit" value="Delete"> 
+                    </fieldset>         
+                </form>
+
+
+
+
+                <form action="http://localhost:4343/user/item_completed" method="POST">
+                    <fieldset>
+                        <input type="hidden" name="user_config" value="<%= config %>" >
+                        <select name="update_item_id" id='update_item_id' required>
+                            <option disabled selected>select an item</option>
+                            <%
+                            for( var i = 0 ; i< items.length ; i++){%>
+                                <option value= <%= items[i].item_id %> > <%= items[i].description %> </option>   
+                            <%}
+                            %>
+                        </select>
+                        <legend>Item completed</legend>
+                        <label for="completed">completed</label>  
+                        <input type="checkbox" value="true" name="completed"  required><br><br> 
+                        <input type="submit" value="completed">
+                    </fieldset>         
+                </form>
+            </section>
+
+
+            
+        </main>
+    </body>
+</html>
